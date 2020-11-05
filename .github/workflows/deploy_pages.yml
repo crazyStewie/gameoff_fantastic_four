@@ -53,7 +53,7 @@ jobs:
           # If Windows executable icons should be updated with the preset's .ico file.
           update_windows_icons: false # optional
           # If should export with debugging tools.
-          export_debug: false# optional
+          export_debug: false #optional
 
       - name: GitHub Push
   # You may pin to the exact commit or the version.
