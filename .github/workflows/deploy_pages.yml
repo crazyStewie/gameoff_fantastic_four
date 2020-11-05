@@ -23,7 +23,31 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: prepare
-        run: mkdir build_web
+        run : |
+          mkdir build_web
+          echo "[preset.0]
+
+  name="HTML5"
+  platform="HTML5"
+  runnable=true
+  custom_features=""
+  export_filter="all_resources"
+  include_filter=""
+  exclude_filter=""
+  export_path="build_web/index.html"
+  patch_list=PoolStringArray(  )
+  script_export_mode=1
+  script_encryption_key=""
+
+  [preset.0.options]
+
+  vram_texture_compression/for_desktop=true
+  vram_texture_compression/for_mobile=false
+  html/custom_html_shell=""
+  html/head_include=""
+  custom_template/release=""
+  custom_template/debug=""
+  " > export_presets.cfg
       # Runs a single command using the runners shell
       - name: Godot Export
         # You may pin to the exact commit or the version.
