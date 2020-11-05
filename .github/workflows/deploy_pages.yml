@@ -82,7 +82,10 @@ jobs:
         run: |
           rm -rf ./*
           rm -rf .*
-      - uses: actions/checkout@pages
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          branch: pages
       - name: prepare push
         run: |
           rm -rf ./*
