@@ -90,6 +90,8 @@ jobs:
         run: |
           rm -rf ./*
           cp /home/runner/.local/share/godot/builds/HTML5/* .
+          git config --global user.email "<>"
+          git config --global user.name "actions"
           git add .
           git status
           git commit -m "updated pages"
