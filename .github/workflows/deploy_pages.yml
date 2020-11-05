@@ -25,29 +25,28 @@ jobs:
       - name: prepare
         run : |
           mkdir build_web
-          echo "[preset.0]
-
-  name="HTML5"
-  platform="HTML5"
-  runnable=true
-  custom_features=""
-  export_filter="all_resources"
-  include_filter=""
-  exclude_filter=""
-  export_path="build_web/index.html"
-  patch_list=PoolStringArray(  )
-  script_export_mode=1
-  script_encryption_key=""
-
-  [preset.0.options]
-
-  vram_texture_compression/for_desktop=true
-  vram_texture_compression/for_mobile=false
-  html/custom_html_shell=""
-  html/head_include=""
-  custom_template/release=""
-  custom_template/debug=""
-  " > export_presets.cfg
+          echo "[preset.0]" >> export_presets.cfg
+          echo "" >> export_presets.cfg
+          echo "name=\"HTML5\"" >> export_presets.cfg
+          echo "platform=\"HTML5\"" >> export_presets.cfg
+          echo "runnable=true" >> export_presets.cfg
+          echo "custom_features=\"\"" >> export_presets.cfg
+          echo "export_filter=\"all_resources\"" >> export_presets.cfg
+          echo "include_filter=\"\"" >> export_presets.cfg
+          echo "exclude_filter=\"\"" >> export_presets.cfg
+          echo "export_path=\"build_web/index.html\"" >> export_presets.cfg
+          echo "patch_list=PoolStringArray(  )" >> export_presets.cfg
+          echo "script_export_mode=1" >> export_presets.cfg
+          echo "script_encryption_key=\"\"" >> export_presets.cfg
+          echo "" >> export_presets.cfg
+          echo "[preset.0.options]" >> export_presets.cfg
+          echo "" >> export_presets.cfg
+          echo "vram_texture_compression/for_desktop=true" >> export_presets.cfg
+          echo "vram_texture_compression/for_mobile=false" >> export_presets.cfg
+          echo "html/custom_html_shell=\"\"" >> export_presets.cfg
+          echo "html/head_include=\"\"" >> export_presets.cfg
+          echo "custom_template/release=\"\"" >> export_presets.cfg
+          echo "custom_template/debug=\"\"" >> export_presets.cfg
       # Runs a single command using the runners shell
       - name: Godot Export
         # You may pin to the exact commit or the version.
