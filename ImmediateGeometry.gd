@@ -5,12 +5,11 @@ extends ImmediateGeometry
 # var a = 2
 # var b = "text"
 var vertices = PoolVector3Array()
-var count = 0
+var count = 10
 var interval = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	vertices.push_back(self.global_transform.origin)
 	pass # Replace with function body.
 
 

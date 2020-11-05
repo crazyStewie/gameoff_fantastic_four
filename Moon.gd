@@ -7,7 +7,7 @@ extends Spatial
 
 onready var vector := self.translation
 var angle := 0.0
-var max_angular_speed = 2.0
+var max_angular_speed = 3.0
 var angular_speed = 0.0
 var accel = 6.0
 # Called when the node enters the scene tree for the first time.

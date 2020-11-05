@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://PlanetMesh.gd" type="Script" id=1]
 
@@ -85,6 +85,7 @@ gradient = SubResource( 9 )
 width = 64
 
 [sub_resource type="ShaderMaterial" id=11]
+render_priority = 1
 shader = SubResource( 8 )
 shader_param/ocean_depth = 0.4
 shader_param/color_ramp = SubResource( 10 )
@@ -123,13 +124,14 @@ seamless = true
 noise = SubResource( 14 )
 
 [sub_resource type="ShaderMaterial" id=16]
+render_priority = 2
 shader = SubResource( 13 )
-shader_param/radius = 1.1
+shader_param/radius = 1.2
 shader_param/cloud_texture = SubResource( 15 )
 
-[sub_resource type="SphereMesh" id=17]
-radius = 1.1
-height = 2.2
+[sub_resource type="SphereMesh" id=26]
+radius = 1.2
+height = 2.4
 
 [sub_resource type="Shader" id=18]
 code = "shader_type spatial;
@@ -183,12 +185,12 @@ void fragment() {
 "
 
 [sub_resource type="Gradient" id=19]
-offsets = PoolRealArray( 0, 0.307692, 0.44507, 1 )
-colors = PoolColorArray( 0, 0, 0, 1, 0.261719, 0.261719, 0.261719, 1, 1, 1, 1, 1, 1, 1, 1, 1 )
+offsets = PoolRealArray( 0, 0.217687, 0.666667, 0.734694, 0.836735, 0.904762, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.0440051, 0.0438332, 0.0438332, 1, 0.179688, 0.178986, 0.178986, 1, 0.207031, 0.204605, 0.204605, 1, 0.422215, 0.422215, 0.422215, 1, 0.691406, 0.691406, 0.691406, 1, 1, 1, 1, 1 )
 
 [sub_resource type="GradientTexture" id=20]
 gradient = SubResource( 19 )
-width = 128
+width = 256
 
 [sub_resource type="Gradient" id=21]
 offsets = PoolRealArray( 0.185915, 0.349112, 0.414201, 0.473373, 0.544379, 0.802817 )
@@ -199,14 +201,18 @@ gradient = SubResource( 21 )
 width = 128
 
 [sub_resource type="ShaderMaterial" id=23]
-render_priority = 1
+render_priority = 2
 shader = SubResource( 18 )
 shader_param/depth_multiplier = 1.0
-shader_param/diameter = 2.2
+shader_param/diameter = 2.8
 shader_param/ocean_radius = 1.0
 shader_param/Light = Vector3( 0.985, 0, 0.174 )
 shader_param/color_depth = SubResource( 20 )
 shader_param/color_light = SubResource( 22 )
+
+[sub_resource type="SphereMesh" id=17]
+radius = 1.4
+height = 2.8
 
 [sub_resource type="SpatialMaterial" id=24]
 albedo_color = Color( 0.0980392, 0.6, 0.870588, 1 )
@@ -232,6 +238,8 @@ elevation = 0.1
 transform = Transform( 0.173648, 0, 0.984808, 0, 1, 0, -0.984808, 0, 0.173648, 0, 0, 0 )
 light_specular = 1.0
 shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 6.0
 
 [node name="Ocean" type="MeshInstance" parent="."]
 material_override = SubResource( 11 )
@@ -240,7 +248,7 @@ material/0 = null
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 material_override = SubResource( 16 )
-mesh = SubResource( 17 )
+mesh = SubResource( 26 )
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]

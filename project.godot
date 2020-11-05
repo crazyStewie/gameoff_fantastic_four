@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "RigidBody",
+"class": "Asteroid",
+"language": "GDScript",
+"path": "res://Asteroid.gd"
+} ]
 _global_script_class_icons={
-
+"Asteroid": ""
 }
 
 [application]
