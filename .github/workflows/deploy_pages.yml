@@ -78,11 +78,14 @@ jobs:
           # If should export with debugging tools.
           export_debug: false #optional
 
+      - name: clean
+        run: |
+          rm -rf ./*
+          rm -rf .*
+      - uses: actions/checkout@pages
       - name: prepare push
         run: |
           rm -rf ./*
-          rm -rf .github
-          rm -rf .gitignore
           cp /home/runner/.local/share/godot/builds/HTML5/* .
       - name: GitHub Push
   # You may pin to the exact commit or the version.
