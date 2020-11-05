@@ -85,7 +85,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
         with:
-          branch: pages
+          ref: pages
       - name: prepare push
         run: |
           rm -rf ./*
