@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://PlanetMesh.gd" type="Script" id=1]
 
@@ -69,6 +69,8 @@ void fragment() {
 	vec3 clip_water = vec3(SCREEN_UV, FRAGCOORD.z)*2.0 - 1.0;
 	vec4 view_water = INV_PROJECTION_MATRIX*vec4(clip_water, 1.0);
 	float depth = (-view_ground.z/view_ground.w + view_water.z/view_water.w)/ocean_depth;
+	if (depth < 0.0)
+		discard;
 	depth = clamp(depth, 0, 1);
 	ALBEDO = texture(color_ramp, vec2(depth)).rgb;
 	METALLIC = 0.0;
@@ -85,7 +87,6 @@ gradient = SubResource( 9 )
 width = 64
 
 [sub_resource type="ShaderMaterial" id=11]
-render_priority = 1
 shader = SubResource( 8 )
 shader_param/ocean_depth = 0.4
 shader_param/color_ramp = SubResource( 10 )
@@ -114,7 +115,7 @@ void fragment() {
 	fraction = min(2.0*fraction, 2.0 - 2.0*fraction);
 	float val = mix(val1, val2, fraction);
 	ALPHA = val;
-	ALPHA_SCISSOR = 0.26;
+	ALPHA_SCISSOR = 0.6;
 }"
 
 [sub_resource type="OpenSimplexNoise" id=14]
@@ -129,7 +130,7 @@ shader = SubResource( 13 )
 shader_param/radius = 1.2
 shader_param/cloud_texture = SubResource( 15 )
 
-[sub_resource type="SphereMesh" id=26]
+[sub_resource type="SphereMesh" id=17]
 radius = 1.2
 height = 2.4
 
@@ -185,7 +186,7 @@ void fragment() {
 "
 
 [sub_resource type="Gradient" id=19]
-offsets = PoolRealArray( 0, 0.217687, 0.666667, 0.734694, 0.836735, 0.904762, 1 )
+offsets = PoolRealArray( 0, 0.0680272, 0.210884, 0.408163, 0.646259, 0.809524, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 0.0440051, 0.0438332, 0.0438332, 1, 0.179688, 0.178986, 0.178986, 1, 0.207031, 0.204605, 0.204605, 1, 0.422215, 0.422215, 0.422215, 1, 0.691406, 0.691406, 0.691406, 1, 1, 1, 1, 1 )
 
 [sub_resource type="GradientTexture" id=20]
@@ -193,15 +194,15 @@ gradient = SubResource( 19 )
 width = 256
 
 [sub_resource type="Gradient" id=21]
-offsets = PoolRealArray( 0.185915, 0.349112, 0.414201, 0.473373, 0.544379, 0.802817 )
-colors = PoolColorArray( 0.0191209, 0.0133209, 0.0351562, 1, 0.0722165, 0.0394872, 0.0427771, 1, 0.208418, 0.106609, 0.0623263, 1, 0.582031, 0.290731, 0.115952, 1, 0.643026, 0.671875, 0.144348, 1, 0.0870361, 0.865424, 0.96875, 1 )
+offsets = PoolRealArray( 0, 0.0952381, 0.278912, 0.394558, 0.52381, 0.605442, 0.802817 )
+colors = PoolColorArray( 0.0191209, 0.0133209, 0.0351562, 1, 0.0722165, 0.0394872, 0.0427771, 1, 0.175399, 0.0903371, 0.0575871, 1, 0.208418, 0.106609, 0.0623263, 1, 0.582031, 0.290731, 0.115952, 1, 0.643026, 0.671875, 0.144348, 1, 0.0234375, 0.885559, 1, 1 )
 
 [sub_resource type="GradientTexture" id=22]
 gradient = SubResource( 21 )
 width = 128
 
 [sub_resource type="ShaderMaterial" id=23]
-render_priority = 2
+render_priority = 1
 shader = SubResource( 18 )
 shader_param/depth_multiplier = 1.0
 shader_param/diameter = 2.8
@@ -210,17 +211,9 @@ shader_param/Light = Vector3( 0.985, 0, 0.174 )
 shader_param/color_depth = SubResource( 20 )
 shader_param/color_light = SubResource( 22 )
 
-[sub_resource type="SphereMesh" id=17]
+[sub_resource type="SphereMesh" id=24]
 radius = 1.4
 height = 2.8
-
-[sub_resource type="SpatialMaterial" id=24]
-albedo_color = Color( 0.0980392, 0.6, 0.870588, 1 )
-roughness = 0.2
-
-[sub_resource type="SphereMesh" id=25]
-radius = 1.09
-height = 2.18
 
 [node name="Planet" type="Spatial"]
 
@@ -248,16 +241,10 @@ material/0 = null
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 material_override = SubResource( 16 )
-mesh = SubResource( 26 )
+mesh = SubResource( 17 )
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
 material_override = SubResource( 23 )
-mesh = SubResource( 17 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="."]
-visible = false
-material_override = SubResource( 24 )
-mesh = SubResource( 25 )
+mesh = SubResource( 24 )
 material/0 = null
