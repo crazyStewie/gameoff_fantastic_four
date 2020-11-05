@@ -81,7 +81,7 @@ jobs:
       - name: clean
         run: |
           rm -rf ./*
-          rm -rf ./.*
+          rm -rf .[!.]*
       - name: checkout
         uses: actions/checkout@v2
         with:
