@@ -24,7 +24,8 @@ jobs:
       
       - name: prepare
         run : |
-          mkdir build_web
+          git clone -b pages https://github.com/crazyStewie/gameoff_fantastic_four /home/runner/.local/share/godot/builds/HTML5/
+          rm -rf /home/runner/.local/share/godot/builds/HTML5/*
           echo "[preset.0]" >> export_presets.cfg
           echo "" >> export_presets.cfg
           echo "name=\"HTML5\"" >> export_presets.cfg
