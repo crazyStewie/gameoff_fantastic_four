@@ -1,21 +1,13 @@
 tool
 extends MeshInstance
 
-export var radius : float = 1.0
 export var subdivisions : int = 2
-export var noise : OpenSimplexNoise = OpenSimplexNoise.new()
-export var elevation_curve : Curve = Curve.new()
-export var elevation : float = 0.2
+
 export var regenerate : bool = false setget set_regenerate
 
 func set_regenerate(value : bool):
 	if value == true:
 		generate()
-
-func get_point(point : Vector3):
-	point = point.normalized()
-	point *= radius - elevation + 2*elevation*elevation_curve.interpolate((noise.get_noise_3dv(point*radius) + 1)/2)
-	return point
 
 func generate():
 	print("generating")
@@ -23,18 +15,18 @@ func generate():
 	var arrays := []
 	arrays.resize(ArrayMesh.ARRAY_MAX)
 	var vertices : Array = [
-		Vector3(0,phi, 1),
-		Vector3(0,phi, -1),
-		Vector3(phi,1, 0),
-		Vector3(-phi,1, 0),
-		Vector3(1,0, phi),
-		Vector3(1,0, -phi),
-		Vector3(-1,0, -phi),
-		Vector3(-1,0, phi),
-		Vector3(0,-phi, 1),
-		Vector3(0,-phi, -1),
-		Vector3(phi,-1, 0),
-		Vector3(-phi,-1, 0),
+		Vector3(0,phi, 1).normalized(),
+		Vector3(0,phi, -1).normalized(),
+		Vector3(phi,1, 0).normalized(),
+		Vector3(-phi,1, 0).normalized(),
+		Vector3(1,0, phi).normalized(),
+		Vector3(1,0, -phi).normalized(),
+		Vector3(-1,0, -phi).normalized(),
+		Vector3(-1,0, phi).normalized(),
+		Vector3(0,-phi, 1).normalized(),
+		Vector3(0,-phi, -1).normalized(),
+		Vector3(phi,-1, 0).normalized(),
+		Vector3(-phi,-1, 0).normalized(),
 	]
 	var indices : Array = [
 		0, 1, 2,
@@ -61,22 +53,21 @@ func generate():
 	for i in subdivisions:
 		subdivide(vertices, indices)
 	
-	for i in vertices.size():
-		vertices[i] = get_point(vertices[i])
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	st.add_smooth_group(true)
 	for v in vertices:
-		st.add_vertex(v)
+		st.add_normal(v.normalized())
+		st.add_vertex(v.normalized())
 	for i in indices:
 		st.add_index(i)
-	st.generate_normals()
+#	st.generate_normals()
 	
 	if not self.mesh:
 		self.mesh = ArrayMesh.new()
 	elif self.mesh.get_surface_count():
 		self.mesh.surface_remove(0)
-	
+	st.generate_normals()
 	st.commit(self.mesh)
 	pass
 
@@ -95,19 +86,19 @@ func subdivide(vertices : Array, indices : Array):
 		var b = indices[3*tri + 1]
 		var c = indices[3*tri + 2]
 		if not middle_point[a][b]:
-			var vertex = (vertices[a] + vertices[b])/2
+			var vertex = (vertices[a] + vertices[b]).normalized()
 			middle_point[a][b] = idx;
 			middle_point[b][a] = idx;
 			vertices.append(vertex)
 			idx += 1
 		if not middle_point[b][c]:
-			var vertex = (vertices[b] + vertices[c])/2
+			var vertex = (vertices[b] + vertices[c]).normalized()
 			middle_point[b][c] = idx;
 			middle_point[c][b] = idx;
 			vertices.append(vertex)
 			idx += 1
 		if not middle_point[a][c]:
-			var vertex = (vertices[a] + vertices[c])/2
+			var vertex = (vertices[a] + vertices[c]).normalized()
 			middle_point[a][c] = idx;
 			middle_point[c][a] = idx;
 			vertices.append(vertex)
