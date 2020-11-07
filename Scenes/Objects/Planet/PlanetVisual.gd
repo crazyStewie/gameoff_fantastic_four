@@ -26,7 +26,7 @@ func index_mesh():
 	surface_tool.index()
 	base_mesh = surface_tool.commit()
 	ResourceSaver.save("res://Resources/Meshes/PlanetBase.mesh", base_mesh)
-	
+
 
 func generate():
 	var base_mesh : ArrayMesh = load("res://Resources/Meshes/PlanetBase.mesh")
@@ -34,18 +34,18 @@ func generate():
 	ocean.create_from_surface(base_mesh, 0)
 	var planet := MeshDataTool.new()
 	planet.create_from_surface(base_mesh, 0)
-	
+
 	for i in planet.get_vertex_count():
 		var vertex = planet.get_vertex(i).normalized()
 		var normalized_elevation := get_normalized_elevation(vertex)
 		planet.set_vertex(i, vertex*(radius + elevation*(2*normalized_elevation - 1)))
 		ocean.set_vertex_color(i, Color(normalized_elevation, normalized_elevation, normalized_elevation))
-	
+
 	var planet_mesh := ArrayMesh.new()
 	var ocean_mesh := ArrayMesh.new()
 	planet.commit_to_surface(planet_mesh)
 	ocean.commit_to_surface(ocean_mesh)
-	
+
 	var planet_surface := SurfaceTool.new()
 	planet_surface.begin(Mesh.PRIMITIVE_TRIANGLES)
 	planet_surface.add_smooth_group(true)

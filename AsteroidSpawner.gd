@@ -23,12 +23,12 @@ func set_spawn_positions():
 	spawn_corners.push_back(camera_node.project_position(Vector2(screen_size.x, 0), 4) + Vector3(1, 1, 0))
 	spawn_corners.push_back(camera_node.project_position(Vector2(screen_size.x, screen_size.y), 4) + Vector3(1, -1, 0))
 	spawn_corners.push_back(camera_node.project_position(Vector2(0, screen_size.y), 4) + Vector3(-1, -1, 0))
-	
+
 	self.spawn_positions.clear_points()
 	for point in spawn_corners:
 		self.spawn_positions.add_point(Vector3(point.x ,point.y, 0))
 	self.spawn_positions.add_point(Vector3(spawn_corners[0].x ,spawn_corners[0].y, 0))
-	
+
 	self.clear()
 	self.begin(Mesh.PRIMITIVE_LINE_LOOP)
 	self.set_color(Color.white)
