@@ -7,6 +7,6 @@
 mesh = ExtResource( 2 )
 material/0 = null
 script = ExtResource( 1 )
-subdivisions = 4
+subdivisions = 6
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]

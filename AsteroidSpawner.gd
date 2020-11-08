@@ -10,8 +10,8 @@ var spawn_positions := Curve3D.new()
 # var b = "text"
 var min_time = 2.0;
 var max_time = 4.0;
-var min_speed = 6.0;
-var max_speed = 8.0;
+var min_speed = 4.0;
+var max_speed = 6.0;
 var wait_time = 5.0;
 onready var asteroid_pck = preload("res://Asteroid.tscn")
 

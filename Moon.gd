@@ -18,6 +18,6 @@ func _physics_process(delta):
 	var target_speed = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))*max_angular_speed
 	angular_speed = lerp(angular_speed, target_speed, accel*delta)
 	angle += angular_speed*delta
-	
+
 	self.translation = vector.rotated(Vector3.FORWARD, angle)
-	
+

@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+
+uniform sampler3D cloud_march;
+
+void vertex(){
+	
+}
+
+
+void fragment(){
+	
+}
+
+
+void light(){
+	
+}
+"
+
+[resource]
+shader = SubResource( 1 )

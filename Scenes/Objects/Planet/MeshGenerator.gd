@@ -52,7 +52,7 @@ func generate():
 	]
 	for i in subdivisions:
 		subdivide(vertices, indices)
-	
+
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	st.add_smooth_group(true)
@@ -62,7 +62,7 @@ func generate():
 	for i in indices:
 		st.add_index(i)
 #	st.generate_normals()
-	
+
 	if not self.mesh:
 		self.mesh = ArrayMesh.new()
 	elif self.mesh.get_surface_count():
